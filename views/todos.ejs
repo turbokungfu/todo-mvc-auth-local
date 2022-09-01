@@ -17,24 +17,23 @@
         <input type="submit">
     </form>
 
-    <table>
-    <ul>
+    <table >
+   
             <th>To Do</th><th>due date</th><th>due time</th><th>days remaining</th><th>hours remaining</th><th>done?</th>
             <tr>   <% todos.forEach( el => { %>
-                <td><li class='todoItem' data-id='<%=el._id%>'>
+                <td class='todoItem' data-id='<%=el._id%>'>
                 <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span></td>
                 <td><span> <%=  el.date.toDateString() %></span><span>, <%=  el.date.getHours() %></span></td>
                 <td><span>: <%=  el.date.getMinutes() %></span></td>
                 <td><span> <%= ((el.date - Date.now())/86400000).toFixed(0) %> days</span></td>
                 <td><span> <%= ((el.date - Date.now())/3600000).toFixed(2) %> hours</span></td>
-                <td><span class='del'> Delete </span></td>
+                <td data-id='<%=el._id%>'><span class='del'> Delete </span></td>
             </tr> 
             <% }) %> 
         </table>
-          
-    </li>
     
-    </ul>
+    
+    
 
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
 
