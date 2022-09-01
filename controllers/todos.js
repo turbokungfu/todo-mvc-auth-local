@@ -1,3 +1,5 @@
+
+
 const Todo = require('../models/Todo')
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
     },
     createTodo: async (req, res)=>{
         try{
-            await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id})
+            await Todo.create({todo: req.body.todoItem, completed: false, date: req.body.date, userId: req.user.id})
             console.log('Todo has been added!')
             res.redirect('/todos')
         }catch(err){
@@ -43,7 +45,7 @@ module.exports = {
         }
     },
     deleteTodo: async (req, res)=>{
-        console.log(req.body.todoIdFromJSFile)
+        console.log(req.body.todoIdFromJSFile, 'hello')
         try{
             await Todo.findOneAndDelete({_id:req.body.todoIdFromJSFile})
             console.log('Deleted Todo')
@@ -52,4 +54,4 @@ module.exports = {
             console.log(err)
         }
     }
-}    
+} 

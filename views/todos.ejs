@@ -9,21 +9,36 @@
 </head>
 <body>
     <h1>Todos</h1>
+
+    <form action="/todos/createTodo" method='POST'>
+        <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+        <span>Pick a Due Date</span>
+        <input type="datetime-local" placeholder="Pick a due date" name='date'>
+        <input type="submit">
+    </form>
+
+    <table>
     <ul>
-    <% todos.forEach( el => { %>
-            <li class='todoItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
-                <span class='del'> Delete </span>
-            </li>
-    <% }) %>    
+            <th>To Do</th><th>due date</th><th>due time</th><th>days remaining</th><th>hours remaining</th><th>done?</th>
+            <tr>   <% todos.forEach( el => { %>
+                <td><li class='todoItem' data-id='<%=el._id%>'>
+                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span></td>
+                <td><span> <%=  el.date.toDateString() %></span><span>, <%=  el.date.getHours() %></span></td>
+                <td><span>: <%=  el.date.getMinutes() %></span></td>
+                <td><span> <%= ((el.date - Date.now())/86400000).toFixed(0) %> days</span></td>
+                <td><span> <%= ((el.date - Date.now())/3600000).toFixed(2) %> hours</span></td>
+                <td><span class='del'> Delete </span></td>
+            </tr> 
+            <% }) %> 
+        </table>
+          
+    </li>
+    
     </ul>
 
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
 
-    <form action="/todos/createTodo" method='POST'>
-        <input type="text" placeholder="Enter Todo Item" name='todoItem'>
-        <input type="submit">
-    </form>
+
 
     <a href="/logout">Logout</a>
 
