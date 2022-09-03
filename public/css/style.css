@@ -11,3 +11,7 @@ h1{
 .del{
     font-weight: 900;
 }
+#myMap{
+    width: 300px;
+    height: 300px;
+}

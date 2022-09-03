@@ -9,6 +9,10 @@ const TodoSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  map: {
+    type: String,
+    required: false,
+  },
   date: {
     type: Date,
     required: false

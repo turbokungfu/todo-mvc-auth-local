@@ -14,11 +14,12 @@
         <input type="text" placeholder="Enter Todo Item" name='todoItem'>
         <span>Pick a Due Date</span>
         <input type="datetime-local" placeholder="Pick a due date" name='date'>
+        <input type="text" placeholder="location?" name="map" >
         <input type="submit">
     </form>
 
+
     <table >
-   
             <th>To Do</th><th>due date</th><th>due time</th><th>days remaining</th><th>hours remaining</th><th>done?</th>
             <tr>   <% todos.forEach( el => { %>
                 <td class='todoItem' data-id='<%=el._id%>'>
@@ -40,7 +41,20 @@
 
 
     <a href="/logout">Logout</a>
+    <table >
+        <th>Location</th>
+        <tr><% todos.forEach( el => { %>
+            <td><span> <%=  el.map %></span>
+        </tr> 
+        <% }) %> 
+    </table>
+
+
+    <div id='printoutPanel'></div>
+    <div id="myMap"style='width: 400px; height: 400px;'></div>
+
 
     <script src="js/main.js"></script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AveUVzCf_U3LuA7ZrKW0O_cpICQp56NjbDrecj4DK6zR5Oi0uhTqdaAUkaQiBTGT&callback=loadMapScenario' async defer></script>
 </body>
 </html>
