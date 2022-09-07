@@ -44,17 +44,19 @@
     <table >
         <th>Location</th>
         <tr><% todos.forEach( el => { %>
-            <td><span> <%=  el.map %></span>
+            <td><span class="findIt"> <%=  el.map %></span>
+                <% console.log(el.map) %>
         </tr> 
         <% }) %> 
     </table>
-
+ 
 
     <div id='printoutPanel'></div>
     <div id="myMap"style='width: 400px; height: 400px;'></div>
-
+    <div id='output' style="margin-left:10px;float:left;"></div>
 
     <script src="js/main.js"></script>
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AveUVzCf_U3LuA7ZrKW0O_cpICQp56NjbDrecj4DK6zR5Oi0uhTqdaAUkaQiBTGT&callback=loadMapScenario' async defer></script>
+  
 </body>
+
 </html>

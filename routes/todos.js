@@ -13,4 +13,6 @@ router.put('/markIncomplete', todosController.markIncomplete)
 
 router.delete('/deleteTodo', todosController.deleteTodo)
 
+router.put('/loadMapScenario', todosController.loadMapScenario)
+
 module.exports = router

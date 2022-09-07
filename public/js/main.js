@@ -1,12 +1,18 @@
+const { query } = require('express')
+
 const deleteBtn = document.querySelectorAll('.del')
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
+const here = document.querySelectorAll('span.findIt').value
+const place = document.querySelectorAll('span.findIt')
+
+
+require('dotenv').config({path: './config/.env'})
 
 
 Array.from(deleteBtn).forEach((el)=>{
     el.addEventListener('click', deleteTodo)
 })
-
 
 Array.from(todoItem).forEach((el)=>{
     el.addEventListener('click', markComplete)
@@ -15,6 +21,13 @@ Array.from(todoItem).forEach((el)=>{
 Array.from(todoComplete).forEach((el)=>{
     el.addEventListener('click', markIncomplete)
 })
+
+Array.from(place).forEach((el)=>{
+    el.addEventListener('click', loadMapScenario)
+})
+
+https://www.bing.com/api/maps/mapcontrol?key=YourBingMapsKey&callback=loadMapScenario
+
 
 async function deleteTodo(){
     const todoId = this.parentNode.dataset.id
@@ -66,14 +79,17 @@ async function markIncomplete(){
         console.log(data)
         location.reload()
     }catch(err){
-        console.log(err)
+        console.log(err) 
     }
 }
+
+
 
 function loadMapScenario() {
     var searchManager;
     var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {});
-    search(map, req.body.map);
+    search(map, 'dallas');
+    
     function search(map, query) {
         //Create an instance of the search manager and perform the search.
         Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
@@ -87,12 +103,12 @@ function loadMapScenario() {
             callback: function (r) {
                 if (r && r.results && r.results.length > 0) {
                     var pin, pins = [], locs = [], output = 'Results:<br/>';
-                    for (var i = 0; i < r.results.length; i++) {
+                    for (var i = 0; i < 1; i++) {
                         //Create a pushpin for each result.
-                        pin = new Microsoft.Maps.Pushpin(r.results[i].location, { text: i + '' });
+                        pin = new Microsoft.Maps.Pushpin(r.results[i].location, { text: (i+1) + '' });
                         pins.push(pin);
                         locs.push(r.results[i].location);
-                        output += i + ') ' + r.results[i].name + '<br/>';
+                        output += (i+1) + ') ' + r.results[i+1].name + '<br/>';
                     }
                     //Add the pins to the map
                     map.entities.push(pins);
