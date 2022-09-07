@@ -32,19 +32,14 @@
             </tr> 
             <% }) %> 
         </table>
-    
-    
-    
 
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
-
-
 
     <a href="/logout">Logout</a>
     <table >
         <th>Location</th>
         <tr><% todos.forEach( el => { %>
-            <td><span class="findIt"> <%=  el.map %></span>
+            <td  class="findIt"><span> <%=  el.map %></span>
                 <% console.log(el.map) %>
         </tr> 
         <% }) %> 
@@ -54,9 +49,8 @@
     <div id='printoutPanel'></div>
     <div id="myMap"style='width: 400px; height: 400px;'></div>
     <div id='output' style="margin-left:10px;float:left;"></div>
-
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
     <script src="js/main.js"></script>
-  
 </body>
 
 </html>

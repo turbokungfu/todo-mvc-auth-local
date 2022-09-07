@@ -1,13 +1,13 @@
-const { query } = require('express')
+
 
 const deleteBtn = document.querySelectorAll('.del')
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
-const here = document.querySelectorAll('span.findIt').value
-const place = document.querySelectorAll('span.findIt')
+const here = document.querySelectorAll('td.findIt').value
+const place = document.querySelectorAll('td.findIt')
 
 
-require('dotenv').config({path: './config/.env'})
+
 
 
 Array.from(deleteBtn).forEach((el)=>{
@@ -25,8 +25,6 @@ Array.from(todoComplete).forEach((el)=>{
 Array.from(place).forEach((el)=>{
     el.addEventListener('click', loadMapScenario)
 })
-
-https://www.bing.com/api/maps/mapcontrol?key=YourBingMapsKey&callback=loadMapScenario
 
 
 async function deleteTodo(){
@@ -86,9 +84,13 @@ async function markIncomplete(){
 
 
 function loadMapScenario() {
+    
     var searchManager;
-    var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {});
-    search(map, 'dallas');
+     var map = new Microsoft.Maps.Map('#myMap', {
+            credentials: 'AveUVzCf_U3LuA7ZrKW0O_cpICQp56NjbDrecj4DK6zR5Oi0uhTqdaAUkaQiBTGT'
+        });
+  
+    search(map, 'huntsville')
     
     function search(map, query) {
         //Create an instance of the search manager and perform the search.
