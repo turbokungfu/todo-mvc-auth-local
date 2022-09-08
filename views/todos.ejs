@@ -39,8 +39,7 @@
     <table >
         <th>Location</th>
         <tr><% todos.forEach( el => { %>
-            <td  class="findIt"><span> <%=  el.map %></span>
-                <% console.log(el.map) %>
+            <td  class="findIt" data-id='<%=el._id%>'><span class="findIt"> <%=  el.map %></span></td>
         </tr> 
         <% }) %> 
     </table>

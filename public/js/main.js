@@ -1,10 +1,8 @@
 
-
 const deleteBtn = document.querySelectorAll('.del')
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
-const here = document.querySelectorAll('td.findIt').value
-const place = document.querySelectorAll('td.findIt')
+const place = document.querySelectorAll('span.findIt')
 
 
 
@@ -23,7 +21,7 @@ Array.from(todoComplete).forEach((el)=>{
 })
 
 Array.from(place).forEach((el)=>{
-    el.addEventListener('click', loadMapScenario)
+    el.addEventListener('click', geocodeQuery)
 })
 
 
@@ -83,58 +81,61 @@ async function markIncomplete(){
 
 
 
-function loadMapScenario() {
-    
-    var searchManager;
-     var map = new Microsoft.Maps.Map('#myMap', {
-            credentials: 'AveUVzCf_U3LuA7ZrKW0O_cpICQp56NjbDrecj4DK6zR5Oi0uhTqdaAUkaQiBTGT'
-        });
-  
-    search(map, 'huntsville')
-    
-    function search(map, query) {
-        //Create an instance of the search manager and perform the search.
+var map, searchManager;
+
+function GetMap() {
+    map = new Microsoft.Maps.Map('#myMap', {
+        credentials: 'AveUVzCf_U3LuA7ZrKW0O_cpICQp56NjbDrecj4DK6zR5Oi0uhTqdaAUkaQiBTGT'
+    });
+}
+
+function geocodeQuery(query) {
+    //If search manager is not defined, load the search module.
+    if (!searchManager) {
+        //Create an instance of the search manager and call the geocodeQuery function again.
         Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
             searchManager = new Microsoft.Maps.Search.SearchManager(map);
-            geocodeQuery(map, query);
+            let arr = Array.from(place)
+        let val = []
+        for(let i = 0; i<arr.length; i++){
+            val.push(arr[i].textContent)
+            geocodeQuery(val[i])
+        }
         });
-    }
-    function geocodeQuery(map, query) {
+    } else {
         var searchRequest = {
             where: query,
             callback: function (r) {
+                //Add the first result to the map and zoom into it.
                 if (r && r.results && r.results.length > 0) {
-                    var pin, pins = [], locs = [], output = 'Results:<br/>';
-                    for (var i = 0; i < 1; i++) {
-                        //Create a pushpin for each result.
-                        pin = new Microsoft.Maps.Pushpin(r.results[i].location, { text: (i+1) + '' });
-                        pins.push(pin);
-                        locs.push(r.results[i].location);
-                        output += (i+1) + ') ' + r.results[i+1].name + '<br/>';
-                    }
-                    //Add the pins to the map
-                    map.entities.push(pins);
-                    //Display list of results
-                    document.getElementById('printoutPanel').innerHTML = output;
-                    //Determine a bounding box to best view the results.
-                    var bounds;
-                    if (r.results.length == 1) {
-                        bounds = r.results[0].bestView;
-                    }
-                    else {
-                        //Use the locations from the results to calculate a bounding box.
-                        bounds = Microsoft.Maps.LocationRect.fromLocations(locs);
-                    }
-                    map.setView({ bounds: bounds });
+                    var pin = new Microsoft.Maps.Pushpin(r.results[0].location);
+                    map.entities.push(pin);
+                    map.setView({ bounds: fromLocations(array.from(r.results))});
                 }
             },
             errorCallback: function (e) {
                 //If there is an error, alert the user about it.
-                document.getElementById('printoutPanel').innerHTML = 'No results found.';
+                alert("No results found.");
             }
         };
+
         //Make the geocode request.
         searchManager.geocode(searchRequest);
     }
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
